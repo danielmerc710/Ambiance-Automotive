@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ambiance Automotive | Underglow Lighting – Raleigh, NC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #9b30ff;
+      --blue:   #30b8ff;
+      --dark:   #0a0a0f;
+      --card:   #12121a;
+      --border: #1e1e2e;
+      --text:   #e0e0f0;
+      --muted:  #7878a0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 80%, rgba(155,48,255,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 30% 60%, rgba(48,184,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--purple);
+      color: var(--purple);
+      margin-left: 1rem;
+    }
+
+    .hero-glow {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 120px;
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--purple));
+      filter: blur(60px);
+      opacity: 0.25;
+      border-radius: 50%;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 3rem;
+    }
+
+    .center { text-align: center; }
+    .center .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* ── SERVICES ── */
+    #services { background: #0d0d15; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .service-card p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--dark); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .gallery-item:hover .overlay { opacity: 1; }
+
+    /* Placeholder cards shown before real photos are added */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      gap: 0.5rem;
+    }
+
+    .gallery-placeholder span { font-size: 2rem; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 0 60px rgba(155,48,255,0.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: #0d0d15;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-inner {
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat h3 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat p { color: var(--muted); font-size: 0.85rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--dark); }
+
+    .contact-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+    .contact-info p { color: var(--muted); margin-bottom: 2rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-detail .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(155,48,255,0.2), rgba(48,184,255,0.2));
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail .info a { color: var(--text); text-decoration: none; }
+    .contact-detail .info a:hover { color: var(--purple); }
+    .contact-detail .info span { display: block; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── FORM ── */
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: #0a0a0f;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(155,48,255,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-group select option { background: #12121a; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: #4eff91;
+    }
+
+    .form-success .check { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d0d15;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+
+      .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .btn-outline { margin-left: 0; margin-top: 0.75rem; }
+      .hero .btn-group { display: flex; flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Ambiance Automotive</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <p class="hero-tag">Raleigh, NC · Custom Underglow Lighting</p>
+  <h1>Make Your Ride<br /><span>Glow Different</span></h1>
+  <p>Professional RGB underglow, interior lighting, and custom LED installs — built to impress on every street.</p>
+  <div class="btn-group">
+    <a href="#gallery" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-outline">Get a Quote</a>
+  </div>
+  <div class="hero-glow"></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Services</h2>
+    <p class="section-sub">Every install is clean, custom, and built to last. Quality kits and quality work.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>Exterior Underglow</h3>
+        <p>Full RGB LED strips mounted under your chassis for a head-turning glow on any surface.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Custom Colors & Patterns</h3>
+        <p>App-controlled RGB systems with millions of colors, music sync, and custom effects.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Clean Wiring & Install</h3>
+        <p>Professional, hidden wiring with no loose cables — built to handle Raleigh roads long-term.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <p class="section-label center">The Work</p>
+  <h2 class="section-title center">Gallery</h2>
+  <p class="section-sub center">Real installs, real results. Click any photo to expand.</p>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!--
+      TO ADD YOUR PHOTOS:
+      Replace each <div class="gallery-item"> block below with one that includes your image.
+      Example:
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="photos/my-photo.jpg" alt="Underglow install" />
+          <div class="overlay"></div>
+        </div>
+
+      Just drop your photos into the same folder as this file and reference them by filename.
+    -->
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="IMG_2384.jpeg" alt="Underglow install" />
+      <div class="overlay"></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="IMG_8111.jpeg" alt="Underglow install" />
+      <div class="overlay"></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="IMG_8989.jpeg" alt="Underglow install" />
+      <div class="overlay"></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="IMG_8990.jpeg" alt="Underglow install" />
+      <div class="overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Raleigh's Underglow Specialist</h2>
+    <p style="color:var(--muted);">
+      Ambiance Automotive is a Raleigh-based custom lighting shop. I take pride in clean installs, quality components, and making sure every car leaves looking better than it came in. Whether you want a subtle accent or a full neon show — I've got you covered.
+    </p>
+    <div class="stats">
+      <div class="stat">
+        <h3>100%</h3>
+        <p>Custom Installs</p>
+      </div>
+      <div class="stat">
+        <h3>RGB</h3>
+        <p>Full Color Control</p>
+      </div>
+      <div class="stat">
+        <h3>RDU</h3>
+        <p>Raleigh, NC Based</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <p class="section-label">Get In Touch</p>
+      <h2>Let's Make You Stand Out in a World Full of Ordinary</h2>
+      <p>Have a question or ready to book? Send me a message and I'll get back to you fast.</p>
+
+      <div class="contact-detail">
+        <div class="icon">📞</div>
+        <div class="info">
+          <span>Phone</span>
+          <a href="tel:9199876980">(919) 987-6980</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="icon">✉️</div>
+        <div class="info">
+          <span>Email</span>
+          <a href="mailto:ambianceautomotive@gmail.com">ambianceautomotive@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="icon">📍</div>
+        <div class="info">
+          <span>Location</span>
+          <span style="color:var(--text);">Raleigh, NC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form id="contactForm" action="https://formsubmit.co/ambianceautomotive@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New quote request – Ambiance Automotive" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Jordan" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone (optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="(919) 000-0000" />
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service…</option>
+            <option>Exterior Underglow</option>
+            <option>Custom RGB Setup</option>
+            <option>Not Sure — Just Browsing</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your car and what you're looking for…" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="check">✅</div>
+        <h3>Message Sent!</h3>
+        <p style="color:var(--muted);margin-top:0.5rem;">I'll get back to you soon. Talk soon!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>Ambiance Automotive</strong> · Raleigh, NC · <a href="tel:9199876980">(919) 987-6980</a></p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Gallery photo" />
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    if (!img) return;
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Contact form — AJAX submit so the page doesn't redirect
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        formSuccess.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please email me directly at ambianceautomotive@gmail.com');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    } catch {
+      alert('Could not send. Please email me directly at ambianceautomotive@gmail.com');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+    }
+  });
+</script>
+</body>
+</html>
